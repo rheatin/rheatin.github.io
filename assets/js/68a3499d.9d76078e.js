@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[952],{9882:e=>{e.exports=JSON.parse('{"label":"openwrt","permalink":"/blog/tags/openwrt","allTagsPath":"/blog/tags","count":1}')}}]);
