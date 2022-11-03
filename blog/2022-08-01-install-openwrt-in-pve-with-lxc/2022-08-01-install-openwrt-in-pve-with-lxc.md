@@ -23,6 +23,9 @@ My configuration is as below:
 | DISKS       | Q200EX 480G,PM961A 256G,ZFS:1TB |
 | SYSTEM      | PVE 7.2-4                       |
 
+The network topology is as below:![topology](topology.jpg)
+
+
 :::tip
 I've found a repository [**pve-edge-kernel**](https://github.com/fw867/pve-edge-kernel), it seems to cover configuration and template of LXC openwrt. Anyone interested can hava a try on your own.
 :::
@@ -34,23 +37,18 @@ I've found a repository [**pve-edge-kernel**](https://github.com/fw867/pve-edge-
 Here I used is the **slim** release of [nanopi-openwrt](https://github.com/klever1988/nanopi-openwrt) made by **klever1988** for that it is simple enough but with the basic extensions installed(*e.g. FULLCONE, Argon Theme*).
 
 :::caution
-If your PVE is lack of FULLCONE, you may need to build it from the source.
+If your PVE lacks FULLCONE, you may need to build it from the source.
 Here attached the [**tutorial**](https://blog.sxx1314.com/linux/587.html)
 :::
-
-Enter in template folder with PVE shell
-
-```shell
-cd /var/lib/vz/template/cache/
-```
 
 Download the firmware you like
 
 ```shell
+cd /var/lib/vz/template/cache/
 wget https://github.com/klever1988/nanopi-openwrt/releases/download/2022-07-08/x86-slim.img.gz
 ```
 :::tip 
-If the image you download is `rootfs.tar.gz`, you can jump to [**Create the LXC container**](#create-the-lxc-container).
+If the image you've downloaded is `rootfs.tar.gz`, you can jump to [**Create the LXC container**](#create-the-lxc-container).
 :::
 Mount all the partitions in this raw disk image
 
@@ -109,7 +107,7 @@ The more detailed infomation about PVE is available at [PCT-DOCs](https://pve.pr
 
 #### Initialize a LXC container
 
-With the upper commands, we can initializa a container
+With the upper commands, we can initialize a container
 
 ```shell
 pct create 100 
@@ -142,14 +140,14 @@ lxc.net.1.link: enp6s0
 lxc.net.1.flags: up
 ```
 
-:::warning
+:::caution
 The container will always load the `/usr/share/lxc/config/openwrt.common.conf` whatever you add it to the configuration of lxc container or not
 :::
 
 :::important
 If you will use <kbd>openclash</kbd> in your container or happen to see the error with this format **"Unable to set capabilities *[sth.]* ..."**, you need to modify the `openwrt.common.conf`
 
-Comment this 2 lines in below file.(***[sth.]*** you are lack of, and the line where it locates should be commented)
+Comment this 2 lines in below file.(***[sth.]*** you lack, and the line where it locates should be commented)
 
 ```shell title="/usr/share/lxc/config/openwrt.common.conf"
 # lxc.cap.drop is meant to discard some capabilities
