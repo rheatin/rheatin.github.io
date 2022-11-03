@@ -6,12 +6,12 @@ tags: [openwrt, PVE, LXC]
 ---
 
 ## Introduction
-> Reference(copy):
+> Reference(Plagiarism🤣):
 > 
 > https://www.right.com.cn/forum/thread-4053183-1-1.html
 > https://blog.csdn.net/kangzeru/article/details/115373587
 
-😄This artical is just a reminder for myself, not a tutorial. Hopefully it helps you too.
+😄This artical is just a **reminder** for myself, not a tutorial. Hopefully it helps you too.
 
 My configuration is as below:
 
@@ -143,13 +143,13 @@ lxc.net.1.flags: up
 ```
 
 :::warning
-The container will load the `/usr/share/lxc/config/openwrt.common.conf` whether you add the it to thr configuration of lxc container
+The container will always load the `/usr/share/lxc/config/openwrt.common.conf` whatever you add it to the configuration of lxc container or not
 :::
 
 :::important
-If you will use <kbd>openclash</kbd> in your container or happen to see the error with this format **Unable to set capabilities...**, you need to modify the `openwrt.common.conf`
+If you will use <kbd>openclash</kbd> in your container or happen to see the error with this format **"Unable to set capabilities *[sth.]* ..."**, you need to modify the `openwrt.common.conf`
 
-Comment this 2 lines in below file
+Comment this 2 lines in below file.(***[sth.]*** you are lack of, and the line where it locates should be commented)
 
 ```shell title="/usr/share/lxc/config/openwrt.common.conf"
 # lxc.cap.drop is meant to discard some capabilities
@@ -230,7 +230,8 @@ Restart the network and firewall
 /etc/init.d/firewall restart
 ```
 
-### Start surfing on the Internet
+## Start surfing on the Internet
 
-🎉Now, you may already have Internet access. You can add further configuration such as installing plugins, adjusting your settings in web interface at http://192.168.1.5
+**🎉Congratulations!**  
+Now, you may already have Internet access. You can add further configuration such as installing plugins, adjusting your settings with web interface at http://192.168.1.5
 
