@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Char ONE',
+  title: 'Char\'s Arcade',
   tagline: 'Dinosaurs are cool',
   url: 'https://rheatin.github.io',
   baseUrl: '/',
@@ -25,7 +25,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en','zh-cn'],
   },
 
   presets: [
@@ -58,7 +58,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Char\'s Arcade',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -72,6 +72,10 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/rheatin/rheatin.github.io',
             label: 'GitHub',
             position: 'right',
@@ -82,11 +86,28 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'About',
             items: [
               {
                 label: 'Tutorial',
                 to: '/docs/intro',
+              },
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+            ],
+          },
+          {
+            title: 'Placeholder',
+            items: [
+              {
+                label: 'Tutorial',
+                to: '/docs/intro',
+              },
+              {
+                label: 'Blog',
+                to: '/blog',
               },
             ],
           },
@@ -107,21 +128,8 @@ const config = {
               },
             ],
           },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Char, Inc. Built with ${"Docusaurus".link("https://docusaurus.io/")}.`,
       },
       prism: {
         theme: lightCodeTheme,
