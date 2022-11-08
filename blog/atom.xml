@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rheatin.github.io/blog</id>
-    <title>Char ONE Blog</title>
+    <title>Char's Arcade Blog</title>
     <updated>2022-08-01T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rheatin.github.io/blog"/>
-    <subtitle>Char ONE Blog</subtitle>
+    <subtitle>Char's Arcade Blog</subtitle>
     <icon>https://rheatin.github.io/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Install Openwrt in PVE with LXC]]></title>
@@ -23,5 +23,17 @@ Here attached the <a href="https://blog.sxx1314.com/linux/587.html" target="_bla
         <category label="openwrt" term="openwrt"/>
         <category label="PVE" term="PVE"/>
         <category label="LXC" term="LXC"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Welcome]]></title>
+        <id>welcome</id>
+        <link href="https://rheatin.github.io/blog/welcome"/>
+        <updated>2022-07-29T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Hello]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hello">Hello<a class="hash-link" href="#hello" title="Direct link to heading">​</a></h2><p>Hello, Everyone!😄</p>]]></content>
+        <author>
+            <name>Char ONE</name>
+        </author>
+        <category label="Welcome" term="Welcome"/>
     </entry>
 </feed>

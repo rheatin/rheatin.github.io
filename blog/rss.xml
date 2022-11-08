@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
-        <title>Char ONE Blog</title>
+        <title>Char's Arcade Blog</title>
         <link>https://rheatin.github.io/blog</link>
-        <description>Char ONE Blog</description>
+        <description>Char's Arcade Blog</description>
         <lastBuildDate>Mon, 01 Aug 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
@@ -21,6 +21,15 @@ Here attached the <a href="https://blog.sxx1314.com/linux/587.html" target="_bla
             <category>openwrt</category>
             <category>PVE</category>
             <category>LXC</category>
+        </item>
+        <item>
+            <title><![CDATA[Welcome]]></title>
+            <link>https://rheatin.github.io/blog/welcome</link>
+            <guid>welcome</guid>
+            <pubDate>Fri, 29 Jul 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[Hello]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="hello">Hello<a class="hash-link" href="#hello" title="Direct link to heading">​</a></h2><p>Hello, Everyone!😄</p>]]></content:encoded>
+            <category>Welcome</category>
         </item>
     </channel>
 </rss>
