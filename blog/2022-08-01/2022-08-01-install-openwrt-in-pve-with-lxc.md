@@ -53,7 +53,7 @@ If the image you've downloaded is `rootfs.tar.gz`, you can jump to [**Create the
 Mount all the partitions in this raw disk image
 
 ```shell
-kpartx -av x86-slim.img.gz 
+kpartx -av x86-slim.img
 ```
 
 Under the `/dev/mapper`, there are 2 ***loopXpY***, one of this contains the Openwrt System.(*e.g. loop0p1*)
@@ -74,7 +74,7 @@ Unmount
 
 ```shell
 umount /mnt
-kpartx -d x86-slim.img.gz
+kpartx -d x86-slim.img
 ```
 
 ### Create the LXC container
