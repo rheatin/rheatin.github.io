@@ -53,9 +53,9 @@ body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
   opacity:0;animation:win-in 420ms var(--ease) forwards}
 .window.hidden{display:none}
 @keyframes win-in{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
-#win-terminal{left:calc(50% - 440px);top:96px;width:880px;animation-delay:100ms}
-#win-projects{left:calc(50% - 180px);top:150px;width:600px;animation-delay:180ms;z-index:11}
-#win-about{left:calc(50% - 400px);top:200px;width:520px;animation-delay:220ms;z-index:12}
+#win-terminal{left:calc(50% - 586px);top:96px;width:560px;animation-delay:100ms}
+#win-projects{left:calc(50% + 26px);top:128px;width:560px;animation-delay:180ms;z-index:11}
+#win-about{left:calc(50% - 260px);top:200px;width:520px;animation-delay:220ms;z-index:12}
 .titlebar{height:38px;display:flex;align-items:center;gap:8px;padding:0 14px;
   border-bottom:1px solid var(--border);background:var(--surface-2);cursor:grab;user-select:none;touch-action:none}
 .titlebar:active{cursor:grabbing}
