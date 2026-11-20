@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<BaseLayout title="Blog — Char's Arcade" description="Notes on OpenWrt, macOS tools, and things I build.">
+  <main class="page">
+    <div class="page-window">
+      <div class="titlebar">
+        <span class="light r"></span><span class="light y"></span><span class="light g"></span>
+        <span class="title">~/notes — {posts.length} entries</span>
+      </div>
+      <div class="content">
+        <p class="sec-head">Archive</p>
+        <h1 class="sec-title">Notes</h1>
+        <div class="post-list">
+          {posts.map(post => (
+            <a class="post-row" href={`/blog/${post.id}`}>
+              <span class="post-date">{post.data.pubDate.toISOString().slice(0,10)}</span>
+              <span class="post-name">{post.data.title}</span>
+              <span class="card-arrow">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

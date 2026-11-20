@@ -1,0 +1,160 @@
+---
+import { getCollection } from 'astro:content';
+import { projects } from '../data/projects';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featured = posts[0];
+---
+
+<section class="scene" id="scene">
+  <div class="scene-inner">
+    <section class="window" id="win-terminal">
+      <div class="titlebar">
+        <span class="light r"></span><span class="light y"></span><span class="light g"></span>
+        <span class="title">cat ~/notes/latest.md — zsh</span>
+      </div>
+      <div class="content">
+        <div class="terminal-line"><span class="prompt">$</span><span id="typed"></span><span class="caret" id="caret"></span></div>
+        <h1 class="post-title" id="postTitle">{featured.data.title}</h1>
+        <div class="post-meta">{featured.data.pubDate.toISOString().slice(0,10)} · {featured.data.tags.join(' · ')} · 4 min read</div>
+        <div class="codeblock">
+          <div class="line"><span class="cmd">→</span> {featured.data.description}</div>
+          <div class="line"><span class="cm"># {posts.length} notes in the archive</span></div>
+        </div>
+        <a class="win-cta" href={`/blog/${featured.id}`}>Read note ↗</a>
+      </div>
+      <div class="statusbar">
+        <span class="live"><span class="dot"></span>ssh char@rheatin</span><span class="net">~/notes</span>
+        <span class="net">{posts.length} entries</span><span class="spacer">UTF-8 · zsh</span>
+      </div>
+    </section>
+
+    <section class="window hidden" id="win-projects">
+      <div class="titlebar">
+        <span class="light r"></span><span class="light y"></span><span class="light g"></span>
+        <span class="title">~/projects — {projects.length} entries</span>
+      </div>
+      <div class="content">
+        <div class="proj-head">Selected work</div>
+        <div id="projWindowList">
+          {projects.map((p, i) => (
+            <a class="proj-row" href={p.url} target="_blank" rel="noopener">
+              <span class="proj-idx">0{i+1}</span>
+              <span class="proj-name">{p.name}</span>
+              <span class="proj-desc">{p.desc}</span>
+              <span class="proj-meta">{p.lang} · <span class="proj-star">★</span>{p.stars}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="window hidden" id="win-about">
+      <div class="titlebar">
+        <span class="light r"></span><span class="light y"></span><span class="light g"></span>
+        <span class="title">about.md</span>
+      </div>
+      <div class="content about-body">
+        <p><strong>Char</strong> — 折腾 macOS 工具、OpenWrt 和网络。</p>
+        <p>这个站是笔记和作品的索引。栈是 <code>Markdown → Astro → static</code>，内容优先纯文本。</p>
+        <p>找我在 <a href="https://github.com/rheatin" target="_blank" rel="noopener" class="accent-link">GitHub ↗</a>。</p>
+      </div>
+    </section>
+  </div>
+</section>
+
+<nav class="dock" aria-label="Dock">
+  <button class="k active" data-win="win-terminal" data-label="Terminal" aria-label="Terminal">&gt;_</button>
+  <button data-win="win-projects" data-label="Projects" aria-label="Projects">▤</button>
+  <button data-win="win-about" data-label="About" aria-label="About">@</button>
+  <button data-nav="/blog" data-label="Blog" aria-label="Blog">✎</button>
+  <button data-ext="https://github.com/rheatin" data-label="GitHub" aria-label="GitHub">↗</button>
+</nav>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const title = document.getElementById('postTitle');
+  if (title) {
+    const words = title.textContent!.split(' ');
+    title.innerHTML = words.map((w, i) => `<span class="word" style="--i:${i}"><span>${w}${i < words.length-1 ? '&nbsp;' : ''}</span></span>`).join('');
+  }
+  const typed = document.getElementById('typed'), caret = document.getElementById('caret');
+  const text = 'cat ~/notes/latest.md';
+  if (typed && caret) {
+    if (reduce) { typed.textContent = text; caret.style.display = 'none'; }
+    else {
+      let i = 0;
+      (function step() {
+        if (i <= text.length) { typed.textContent = text.slice(0, i++); setTimeout(step, 45); }
+        else caret.style.display = 'none';
+      })();
+    }
+  }
+
+  const wins = Array.from(document.querySelectorAll<HTMLElement>('.window'));
+  let z = 20;
+  function front(win: HTMLElement) {
+    win.style.zIndex = String(++z);
+    document.querySelectorAll<HTMLElement>('.dock button[data-win]').forEach(b => b.classList.toggle('active', b.dataset.win === win.id));
+  }
+  wins.forEach(win => {
+    const bar = win.querySelector<HTMLElement>('.titlebar')!;
+    let drag = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    bar.addEventListener('pointerdown', (e) => {
+      if ((e.target as HTMLElement).classList.contains('light')) return;
+      drag = true;
+      const r = win.getBoundingClientRect(), sr = document.getElementById('scene')!.getBoundingClientRect();
+      ox = r.left - sr.left; oy = r.top - sr.top; sx = e.clientX; sy = e.clientY;
+      win.style.left = ox + 'px'; win.style.top = oy + 'px';
+      win.style.animation = 'none'; win.style.opacity = '1'; win.style.transform = 'none';
+      bar.setPointerCapture(e.pointerId); front(win);
+    });
+    bar.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      win.style.left = (ox + e.clientX - sx) + 'px';
+      win.style.top = (oy + e.clientY - sy) + 'px';
+    });
+    bar.addEventListener('pointerup', () => { drag = false; });
+    win.addEventListener('pointerdown', () => front(win));
+    const lights = win.querySelectorAll<HTMLElement>('.light');
+    lights[0].addEventListener('click', (e) => { e.stopPropagation(); win.classList.add('hidden'); });
+    lights[1].addEventListener('click', (e) => {
+      e.stopPropagation();
+      win.style.transition = 'transform 220ms var(--ease),opacity 220ms var(--ease)';
+      win.style.transform = 'scale(.7)'; win.style.opacity = '0';
+      setTimeout(() => { win.classList.add('hidden'); win.style.transform = ''; win.style.opacity = ''; win.style.transition = ''; }, 220);
+    });
+    lights[2].addEventListener('click', (e) => {
+      e.stopPropagation();
+      const max = win.dataset.max === '1'; win.dataset.max = max ? '0' : '1';
+      win.style.transition = 'left 260ms var(--ease),top 260ms var(--ease),width 260ms var(--ease),height 260ms var(--ease)';
+      if (max) { win.style.left = ''; win.style.top = ''; win.style.width = ''; win.style.height = ''; }
+      else { win.style.left = '16px'; win.style.top = '74px'; win.style.width = 'calc(100% - 32px)'; win.style.height = 'calc(100% - 110px)'; }
+      setTimeout(() => { win.style.transition = ''; }, 270);
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('.dock button[data-win]').forEach(b => {
+    b.addEventListener('click', () => {
+      const w = document.getElementById(b.dataset.win!)!;
+      if (!w.classList.contains('hidden') && Number(getComputedStyle(w).zIndex) >= z) w.classList.add('hidden');
+      else { w.classList.remove('hidden'); front(w); }
+    });
+  });
+  document.querySelectorAll<HTMLElement>('.dock button[data-nav]').forEach(b => {
+    b.addEventListener('click', () => { window.location.href = b.dataset.nav!; });
+  });
+  document.querySelectorAll<HTMLElement>('.dock button[data-ext]').forEach(b => {
+    b.addEventListener('click', () => { window.open(b.dataset.ext!, '_blank', 'noopener'); });
+  });
+
+  const scene = document.getElementById('scene');
+  if (scene && !reduce) {
+    window.addEventListener('scroll', () => {
+      const s = Math.min(window.scrollY / window.innerHeight, 1);
+      scene.style.transform = `scale(${1 - s*0.04}) translateY(${s*18}px)`;
+      scene.style.opacity = String(1 - s*0.35);
+    }, { passive: true });
+  }
+</script>
