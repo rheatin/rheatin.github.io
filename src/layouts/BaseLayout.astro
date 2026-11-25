@@ -10,6 +10,16 @@ const { title = "Char's Arcade", description = 'Notes on macOS tools, OpenWrt, a
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Char's Arcade" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <link rel="alternate" type="application/rss+xml" title="Char's Arcade RSS" href="/rss.xml" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
